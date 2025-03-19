@@ -1,0 +1,7 @@
+# Ignore sensitive files 
+__pycache__/
+**/migrations/__pycache__/
+**/migrations/*.pyc
+
+# Ignore environment variables file
+.env
