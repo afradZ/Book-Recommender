@@ -24,19 +24,19 @@ Users can update their rating for a book.
 
 🔗 API Endpoints
 
-Method	   Endpoint	   Description
+Method          Endpoint	                       Description
 
-POST	/api/register/	Register a new user
+POST	           /api/register/                  Register a new user
 
-POST	/api/login/	User login (returns a token)
+POST	           /api/login/                     User login (returns a token)
 
-GET	/api/fetch-books/	Get all books in the database
+GET	            /api/fetch-books/	              Get all books in the database
 
-GET	/api/search-books/	Search books using Google Books API
+GET	            /api/search-books/	             Search books using Google Books API
 
-GET	/api/recommendations/	Get book recommendations
+GET	            /api/recommendations/	          Get book recommendations
 
-POST	/api/rate-book/	Rate a book (1-5 stars)
+POST	           /api/rate-book/	                Rate a book (1-5 stars)
 
 🚀 How to Use
 
