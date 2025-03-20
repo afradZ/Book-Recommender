@@ -114,10 +114,14 @@ def rate_book(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def fetch_recommendations(request):
-    # Annotate each book with its average rating
+    # Annotate each book with its average rating, excluding books with no ratings
     top_books = Book.objects.annotate(
-        avg_rating=Avg('ratings__rating')  # Use the reverse relationship 'ratings'
-    ).order_by('-avg_rating')[:10]  # Order by average rating in descending order
+        avg_rating=Avg('ratings__rating')
+    ).filter(
+        ratings__isnull=False  # Exclude books with no ratings
+    ).order_by(
+        '-avg_rating'  # Order by average rating in descending order
+    )[:10]  # Limit to top 10 books
 
     if not top_books:
         return Response({'error': 'No recommendations found'}, status=200)
