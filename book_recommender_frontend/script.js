@@ -86,39 +86,39 @@ const rateBook = async (bookId, rating) => {
   }
 };
 
-// Display Books
 const displayBooks = (books, container) => {
   console.log('Displaying books:', books);  // Debugging
   console.log('Container:', container);  // Debugging
 
   if (container) {
     container.innerHTML = books
-      .map(
-        (book) => {
-          // Calculate the average rating
-          const avgRating = book.ratings?.length > 0
-            ? (book.ratings.reduce((sum, rating) => sum + rating.rating, 0) / book.ratings.length)
-            : null;
+      .map((book) => {
+        // Calculate the average rating
+        const avgRating = book.ratings?.length > 0
+          ? (book.ratings.reduce((sum, rating) => sum + rating.rating, 0) / book.ratings.length)
+          : null;
 
-          return `
-            <div class="book">
-              <h3>${book.title}</h3>
-              <p>Authors: ${book.authors?.join(', ') || 'No authors'}</p>
-              <p class="description">
-                <span class="truncated-description">${truncateDescription(book.description, 100)}</span>
-                <span class="full-description" style="display: none;">${book.description}</span>
-                <button class="read-more">Read More</button>
-              </p>
-              <div class="ratings">
-                <strong>Average Rating:</strong>
-                <p>${avgRating ? avgRating.toFixed(1) + ' stars' : 'No ratings yet'}</p>
-              </div>
-              <img src="${book.cover_image_url}" alt="${book.title}" width="100">
-              <button class="rate-book" data-book-id="${book.google_books_id}">Rate this book</button>  <!-- Use google_books_id -->
+        // Use a placeholder image if the cover image URL is not available
+        const coverImage = book.cover_image_url || 'images/no-cover.png';
+
+        return `
+          <div class="book">
+            <h3>${book.title}</h3>
+            <p>Authors: ${book.authors?.join(', ') || 'No authors'}</p>
+            <p class="description">
+              <span class="truncated-description">${truncateDescription(book.description, 100)}</span>
+              <span class="full-description" style="display: none;">${book.description}</span>
+              <button class="read-more">Read More</button>
+            </p>
+            <div class="ratings">
+              <strong>Average Rating:</strong>
+              <p>${avgRating ? avgRating.toFixed(1) + ' stars' : 'No ratings yet'}</p>
             </div>
-          `;
-        }
-      )
+            <img src="${coverImage}" alt="${book.title}" width="100">
+            <button class="rate-book" data-book-id="${book.google_books_id}">Rate this book</button>
+          </div>
+        `;
+      })
       .join('');
 
     // Add event listeners for "Read More" buttons

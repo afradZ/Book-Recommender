@@ -7,17 +7,56 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Book Recommender</h1>
-    <nav>
-      <a href="#login">Login</a>
-      <a href="#register">Register</a>
-      <a href="#search">Search</a>
-      <a href="#recommendations">Recommendations</a>
-    </nav>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1>Book Recommender</h1>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#login">Login</a>
+        <a href="#register" class="cta-nav">Get Started</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h2 class="hero-title">Discover Your Next Favorite Read</h2>
+        <p class="hero-tagline">Personalized book recommendations tailored just for you.</p>
+        <a href="#register" class="cta-button">Start Reading Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section section-padding">
+    <div class="container">
+      <h2>Why Choose Book Recommender?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>Smart AI*</h3>
+          <p>Advanced algorithms that learn your reading preferences*.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3>LOTS of Books</h3>
+          <p>Massive collection across all genres and categories.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Personalized</h3>
+          <p>Recommendations tailored to your unique taste.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Existing Functionality (Untouched) -->
+  <main class="container section-padding">
     <!-- Login Form -->
     <section id="login">
       <h2>Login</h2>
@@ -29,15 +68,15 @@
     </section>
 
     <!-- Registration Form -->
-  <section id="register">
-    <h2>Register</h2>
-    <form id="registerForm">
-      <input type="text" id="regUsername" placeholder="Username" required>
-      <input type="email" id="regEmail" placeholder="Email" required>
-      <input type="password" id="regPassword" placeholder="Password" required>
-      <button type="submit">Register</button>
-    </form>
-  </section>
+    <section id="register">
+      <h2>Register</h2>
+      <form id="registerForm">
+        <input type="text" id="regUsername" placeholder="Username" required>
+        <input type="email" id="regEmail" placeholder="Email" required>
+        <input type="password" id="regPassword" placeholder="Password" required>
+        <button type="submit">Register</button>
+      </form>
+    </section>
 
     <!-- Book List -->
     <section id="bookList">
@@ -60,6 +99,7 @@
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Book Recommender</p>
   </footer>
