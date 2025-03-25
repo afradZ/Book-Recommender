@@ -5,7 +5,7 @@ FROM python:3.11
 WORKDIR /app
 
 # Copy the requirements file
-COPY requirements.txt .
+COPY book_recommender_backend/requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
