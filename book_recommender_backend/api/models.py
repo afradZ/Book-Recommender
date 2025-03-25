@@ -7,7 +7,7 @@ class Book(models.Model):
     authors = models.JSONField(default=list)  # Store multiple authors as a list
     description = models.TextField(blank=True, null=True)
     cover_image_url = models.URLField(blank=True, null=True)  # URL to the book cover
-    published_date = models.CharField(max_length=10, blank=True, null=True)  # Year of publication
+    published_date = models.CharField(max_length=20, blank=True, null=True)  # Year of publication
 
     def __str__(self):
         return self.title
