@@ -1,0 +1,7 @@
+{
+    "build": {
+      "dockerfilePath": "book_recommender_backend/Dockerfile",
+      "context": "book_recommender_backend"
+    }
+  }
+  
