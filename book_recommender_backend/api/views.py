@@ -1,5 +1,4 @@
 import logging
-from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -35,10 +34,14 @@ def fetch_books(request):
             volume_info = book.get('volumeInfo', {})
             google_books_id = book.get('id')
             title = volume_info.get('title', 'No Title')
+            if len(title) > 200:  
+                title = title[:200]
             authors = volume_info.get('authors', [])
             description = volume_info.get('description', 'No Description')
             cover_image_url = volume_info.get('imageLinks', {}).get('thumbnail', '')
             published_date = volume_info.get('publishedDate', '')
+            if len(published_date) > 4:
+                published_date = published_date[:4]  # Extract only the year from the date
 
             # Check if the book already exists in the database
             if not Book.objects.filter(google_books_id=google_books_id).exists():
@@ -133,13 +136,52 @@ def fetch_recommendations(request):
 @api_view(['GET'])
 def search_books(request):
     query = request.query_params.get('q', '')
-    books = Book.objects.filter(
-        Q(title__icontains=query) |
-        Q(authors__icontains=query) |
-        Q(description__icontains=query)
-    )
-    serializer = BookSerializer(books, many=True)
-    return Response(serializer.data)
+    
+    if not query:
+        return Response({'error': 'Search query is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        # First fetch from Google Books API and store new results
+        params = {
+            'q': query,
+            'maxResults': 10,
+            'key': settings.GOOGLE_BOOKS_API_KEY
+        }
+        response = requests.get(GOOGLE_BOOKS_API_URL, params=params)
+        
+        if response.status_code == 200:
+            books_data = response.json().get('items', [])
+            for book in books_data:
+                volume_info = book.get('volumeInfo', {})
+                google_books_id = book.get('id')
+                
+                # Only create if book doesn't exist
+                if not Book.objects.filter(google_books_id=google_books_id).exists():
+                    Book.objects.create(
+                        google_books_id=google_books_id,
+                        title=volume_info.get('title', 'No Title')[:200],  # Truncate long titles
+                        authors=volume_info.get('authors', []),
+                        description=volume_info.get('description', 'No Description'),
+                        cover_image_url=volume_info.get('imageLinks', {}).get('thumbnail', ''),
+                        published_date=volume_info.get('publishedDate', '')[:4]  # Just year
+                    )
+    
+        # Now search in our database (which includes fresh results)
+        books = Book.objects.filter(
+            Q(title__icontains=query) |
+            Q(authors__icontains=query) |
+            Q(description__icontains=query)
+        ).distinct()
+        
+        serializer = BookSerializer(books, many=True)
+        return Response(serializer.data)
+    
+    except Exception as e:
+        logger.error(f"Error in search_books: {str(e)}")
+        return Response(
+            {'error': 'An error occurred during search'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
   
 #User registration
 @api_view(['POST'])
