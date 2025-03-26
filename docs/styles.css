@@ -132,6 +132,56 @@ body {
 }
 
 /* ======================
+   About Section
+   ====================== */
+   .about-section {
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  
+  .about-content a {
+    color: #6366f1;
+    text-decoration: none;
+  }
+  
+  .team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  
+  .team-member {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 200px;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .social-links a {
+    color: #6366f1;
+    font-size: 0.9rem;
+  }
+  
+  .github-repo {
+    margin-top: 30px;
+  }
+
+/* ======================
    Form and Input Styling
    ====================== */
 /* General Form Styles */
