@@ -70,3 +70,7 @@ External API: Google Books API
 
 
 📌 Contributions are welcome! Fork the repo and submit a pull request. 🚀🎉
+
+blogpost: inkedin.com/pulse/building-smarter-book-recommender-my-journey-from-idea-zakaria-afrad-mdrze/?trackingId=C702l6FnPN4p2BtEM6vA9A%3D%3D
+
+Gitpage: https://afradz.github.io/Book-Recommender/
